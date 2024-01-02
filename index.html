@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Adivina</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <h1>Adivina el Numero</h1>
+    <button id="btnHelp">Reglas Juego</button>
+    <div id="card" hidden>
+      <h3>Title</h3>
+      <p role="definition">Description</p>
+      <p role="alert">Cierra en: <strong>12</strong>s</p>
+    </div>
+    <header>
+      <h2>Information</h2>
+      <p id="puntosAcumulados">Puntos Acumulados: <strong>0</strong></p>
+      <p id="nivel">Nivel: <strong>0</strong></p>
+    </header>
+    <section>
+      <p id="intentosRestantes">Intentos Restantes: <strong>0</strong></p>
+      <p id="puntosGanar">Puntos en juego: <strong>0</strong></p>
+      <table id="tablaPuntos">
+        <tbody>
+          <tr></tr>
+          <tr></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <form method="dialog">
+      <h3>Ingresa el numero</h3>
+      <fieldset>
+        <legend>Adivina el numero. Range: [<strong>0-100</strong>]</legend>
+        <label>
+          Ingresa el numero:
+          <input
+            required
+            type="number"
+            placeholder="Enter the number"
+            step="1"
+            maxlength="2"
+          />
+        </label>
+        <button id="btnSubmit" disabled>Enviar</button>
+      </fieldset>
+    </form>
+
+    <table class="avisos">
+      <thead>
+        <tr>
+          <th>Aviso</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script src="./js/index.js"></script>
+  </body>
+</html>
