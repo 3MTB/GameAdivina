@@ -34,7 +34,7 @@ h1 {
 }
 
 .card {
-
+    box-sizing: border-box;
     width: 100vw;
     height: 100vh;
     font-size: 2em;
@@ -43,7 +43,6 @@ h1 {
     align-items: center;
     justify-content: center;
     border: .3px solid #afafaf;
-
     & p {
         font-size: 1em;
     }
@@ -55,7 +54,7 @@ h1 {
     background-color: #ffffff;
     color: #000;
     font-size: 2em;
-    padding: 30px;
+    
     text-overflow: ellipsis;
     & strong{
         color: #f00;
@@ -146,6 +145,7 @@ form {
     & input {
         font-size: 1em;
         font-weight: lighter;
+        color: red;
     }
 }
 
