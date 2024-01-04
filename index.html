@@ -12,28 +12,35 @@
     <div id="card" hidden>
       <h3>Title</h3>
       <p role="definition">Description</p>
-      <p role="alert">Cierra en: <strong>10</strong>s</p>
+      <button id="btnCloseCard">❌</button>
+      <p role="alert">Cierra Automaticamente en: <strong></strong>s</p>
     </div>
     <header>
       <h2>Information</h2>
-      <p id="puntosAcumulados">Puntos Acumulados: <strong>0</strong></p>
       <p id="nivel">Nivel: <strong>1</strong></p>
+      <p id="puntosAcumulados">Puntos Acumulados: <strong>0</strong></p>
     </header>
+    <p role="alert" id="aviso" ></p>
+
     <section>
       <p id="intentosRestantes">Intentos Restantes: <strong>0</strong></p>
       <p id="puntosGanar">Puntos en juego: <strong>0</strong></p>
       <table id="tablaPuntos">
         <tbody>
-          <tr></tr>
-          <tr></tr>
+          <tr>
+            <td>12</td>
+            <td>12</td>
+            <td>12</td>
+            <td>12</td>
+          </tr>
         </tbody>
       </table>
     </section>
 
     <form method="dialog">
-      <h3>Ingresa el numero</h3>
+      <h3>Prueba Tu Suerte</h3>
       <fieldset>
-        <legend>Adivina el numero. Range: [<strong>0-100</strong>]</legend>
+        <legend>Range: [<strong>0-100</strong>]</legend>
         <label>
           Ingresa el numero:
           <input
@@ -48,15 +55,7 @@
       </fieldset>
     </form>
 
-    <table class="avisos">
-      <thead>
-        <tr>
-          <th>Aviso</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
 
-    <script src="./js/index.js"></script>
+    <script defer src="./js/index.js"></script>
   </body>
 </html>

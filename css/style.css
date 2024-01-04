@@ -1,14 +1,23 @@
+:root {
+    --bgElements: #000000c3;
+    --infoColor: #2980b9;
+    --warningColor: #E2703A;
+    --errorColor: #C70039;
+}
+
+/*! Hacer que no tenga scroll::: Bajarle el tamano a todo */
 body {
-    background-color: #0a0a0a;
+    background-color: #000;
     color: #ccc;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Helvetica', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url("/img/background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    backdrop-filter: blur(2px);
+
+}
+
+strong {
+    transition: .3s;
 }
 
 section,
@@ -20,163 +29,302 @@ h1,
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #0a0a0a;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(1px);
+
+
 }
 
 h1 {
-    background-color: #000000c3;
-    backdrop-filter: blur(20px);
+    /* backdrop-filter: blur(20px); */
     font-size: 3em;
-    color: #32cc5689;
+    color: #86B6F6;
 }
+
+#btnHelp {
+    position: absolute;
+    left: .6rem;
+    z-index: 1;
+    cursor: pointer;
+    padding: .4rem;
+    font-size: .8rem;
+    font-weight: 200;
+    color: #fff;
+
+    background-color: transparent;
+    border: .02rem dashed #fff;
+    border-radius: 5%;
+    letter-spacing: .1rem;
+    transition: .7s;
+
+    &:hover {
+        background-color: #fff;
+        color: var(--errorColor);
+        /* font-weight: bold; */
+        border: none;
+
+    }
+}
+
 
 .card {
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
-    font-size: 2em;
+    font-size: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border: .3px solid #afafaf;
-    & p
+    overflow: auto;
 
-{
-    font-size: 1em;
-}
+    & h3 {
+        word-spacing: 1.5rem;
+        letter-spacing: .3rem;
+        text-shadow: 0 0 40rem var(--infoColor);
+    }
+
+    & p {
+        font-size: 1rem;
+        letter-spacing: .1rem;
+        word-spacing: 0.7rem;
+    }
+
+    & button {
+        position: absolute;
+        font-size: 1.7rem;
+        font-weight: lighter;
+        cursor: pointer;
+        font-family: inherit;
+        right: 1.2rem;
+        top: 1.2rem;
+        background-color: transparent;
+        transform: .2s;
+
+        &:hover {
+            text-shadow: 0rem 0rem 3rem #000;
+            border: 1px solid #000;
+        }
+    }
+
 
 }
 
 .information {
     box-sizing: border-box;
-    background-color: #ffffff;
-    color: #000;
-    font-size: 2em;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    font-size: 2rem;
     text-overflow: ellipsis;
-    & strong
 
-{
-    color: #f00;
-}
+    & strong {
+        letter-spacing: 2px;
+        color: var(--warningColor);
+        font-size: 1.2rem;
+    }
 
 }
 
 .winner {
-    color:#000;
-    text-shadow: 2px 2px 40px #05130b;
-    background-color: #2BFF88;
-    background-image: linear-gradient(15deg, #2BD2FF 34%, #2BFF88 60%, #14ff7e 100%);
+    color: #000;
+    background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
+
 }
 
 .loser {
-    text-shadow: 2px 2px 40px rgb(9, 1, 1);
-    background-color: #FFE53B;
-    background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
+    background: linear-gradient(to right, #8a2387, #e94057, #f27121);
 }
 
 header {
-    background-color: #000000c3;
-    font-size: 1em;
     font-weight: bolder;
-    border: 1px solid #ccc;
-    & :last-child
 
-{
-    color: #09f;
-    font-size: 1.2em;
-    & strong
+    & h2 {
+        color: #000;
+        font-size: 2rem;
+        font-weight: lighter;
+        border: 1px solid #F6B17A;
+        padding: 20px;
+        border-radius: 20%;
+        transition: .7s;
+        font-weight: 900;
+        letter-spacing: 7px;
 
-{
-    color: #fff;
-}
+        background: linear-gradient(to right, #a6eb74 0%, #9face6 100%);
 
-}
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
 
-& :nth-child(2) {
-    color: #b5734c;
-    font-size: 1.2em;
-    & strong
+        &:hover {
+            color: #F6B17A;
+            border: 1px solid #fff;
+        }
+    }
 
-{
-    color: #fff;
-}
+    & #nivel,
+    #puntosAcumulados {
+        font-weight: lighter;
+        color: #ffffff;
+        font-size: 1.3rem;
 
-}
+        & strong {
+            color: #3642ecd6;
+            font-size: 1.3rem;
+        }
+    }
 }
 
 section {
-    font-size: 1.4em;
-    font-weight: bolder;
-    background-color: #000000c3;
-    &>p:first-child
-
-{
-    color: #dd361c;
-    & strong
-
-{
-    color: #01ff3c;
-    font-size: 1.7em;
-    font-weight: bold;
-}
-
-}
-
-& > p:nth-child(2) {
-    font-size: 1em;
-    color: #2BD2FF;
-    & strong
-
-{
-    color: #afafaf;
     font-weight: lighter;
-}
+    user-select: none;
 
-}
+    & #intentosRestantes {
+        font-size: 2rem;
+        color: #fff;
+        text-shadow: 1px 1px 20px #000;
+
+        & strong {
+            color: #ff0000;
+            text-shadow: 1px 3px #ffffff;
+            font-size: 3rem;
+            font-weight: bold;
+
+            &:hover {
+                color: #ff1515;
+                text-shadow: 0px 2px #09f;
+                border: none;
+            }
+        }
+    }
+
+    & #puntosGanar {
+        font-size: 1.2rem;
+        color: #fff;
+        text-shadow: 1px 1px 20px #000;
+    }
+
+    & #tablaPuntos {
+        border: 1px solid #fff;
+        border-right: 1px solid red;
+
+        & tr td {
+            padding: 4px;
+            border: 2px solid green;
+        }
+
+        & tr td:last-child {
+            border: .4px solid #CD1818;
+            color: red;
+            text-decoration: underline;
+        }
+    }
 }
 
 form {
-    padding: 30px;
-    background-color: #000;
-    font-size: 1.4em;
-    border: 3px solid #09f;
-    & #btnSubmit
-
-{
-    font-size: 1em;
     color: #fff;
-    font-weight: bolder;
-    background-color: #105f94;
-}
 
-& input {
-    font-size: 1em;
+    padding: 30px;
     font-weight: lighter;
-    color: red;
-}
+
+    & h3 {
+        letter-spacing: .18rem;
+        font-size: 3rem;
+        background: radial-gradient(#09f, #fff);
+
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+    & fieldset {
+        border: 1px solid #00c9ff;
+    }
+
+    & legend {
+        font-size: 1.2rem;
+        text-align: center;
+        letter-spacing: .2rem;
+
+        & strong {
+            background: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            font-size: 1.7rem;
+        }
+    }
+
+    & #btnSubmit {
+        font-size: 1rem;
+        color: #780e0e;
+        font-weight: bolder;
+        background-color: #105f94;
+    }
+
+    & input {
+        background-color: var(--bgElements);
+        border: 0;
+        border-bottom: .02rem solid #fff;
+        border-top: .01rem solid #fff;
+        font-size: 1em;
+        font-weight: lighter;
+        color: #fff;
+
+        &:focus {
+            &::placeholder {
+                color: transparent;
+            }
+        }
+    }
 
 }
 
-.avisos {
-    border: 1px solid #fff;
-    & tr td
+.aviso {
+    position: absolute;
+    max-width: 100vh;
+    top: 39rem;
+    right: 1rem;
+    color: #fff;
+    padding: 0.5rem;
+    z-index: 1;
+    font-weight: 900;
+    border: 2px dashed;
+    transition: .6s;
 
-{
-    text-align: center;
-    padding: 4px;
-    border: .4px solid #767070;
-}
+    &.info {
+        border-color: var(--infoColor);
+        text-shadow: 1px 2px var(--infoColor);
 
-}
+        &::before {
+            content: "ℹ️ ";
+            font-size: 1.1rem;
+            text-shadow: 1px 1px var(--infoColor);
+            color: var(--infoColor);
+        }
+    }
 
-#tablaPuntos {
-    border: 1px solid #fff;
-    & tr td
+    &.warning {
+        border-color: var(--warningColor);
+        text-shadow: 1px 2px var(--warningColor);
 
-{
-    padding: 4px;
-    border: .4px solid #fff;
-}
+        &::before {
+            content: "⚠️ ";
+            font-size: 1.1rem;
+            text-shadow: 1px 1px var(--warningColor);
+            color: var(--warningColor);
+        }
+    }
+
+    &.error {
+        border-color: var(--errorColor);
+        text-shadow: 1px 2px var(--errorColor);
+
+        &::before {
+            content: "❌ ";
+            font-size: 1.1rem;
+            text-shadow: 2px 0px 10px var(--errorColor);
+            color: var(--errorColor);
+        }
+    }
+
 }
