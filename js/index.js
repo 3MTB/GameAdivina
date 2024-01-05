@@ -32,6 +32,7 @@ let puntosAcumulados = 0;
 let intentosRestantes = 0;
 let puntosGanar = 0;
 let cardInterval = 0;
+let avisoTimeout = 0;
 //! Variables Locales
 try {
   addEventListener("DOMContentLoaded", () => {
@@ -48,30 +49,30 @@ try {
   });
 
   $input.addEventListener("input", () => {
+    clearTimeout(avisoTimeout);
+
     if ($input.value.length === 0) {
       $btnSubmit.disabled = true;
-      while ($aviso.firstChild) {
-        $aviso.removeChild($aviso.firstChild);
-      }
+      // clearTimeout(avisoTimeout);
     } else if (parseInt($input.value) > parseInt($input.getAttribute("max"))) {
       $btnSubmit.disabled = true;
       creaAviso(
         `El valor introducido debe ser menor o Igual al maximo establecido: ${
-          ($input.getAttribute("max"), "error", 4)
+          ($input.getAttribute("max"), "warning", 4)
         }`
       );
     } else if (parseInt($input.value) < parseInt($input.getAttribute("min"))) {
       $btnSubmit.disabled = true;
       creaAviso(
         `El valor introducido debe ser mayor o Igual al minimo establecido: ${
-          ($input.getAttribute("min"), "error", 4)
+          ($input.getAttribute("min"), "warning", 4)
         }`
       );
     } else {
       $btnSubmit.disabled = false;
-      while ($aviso.firstChild) {
-        $aviso.removeChild($aviso.firstChild);
-      }
+      clearTimeout(avisoTimeout);
+
+      // clearTimeout(avisoTimeout);
     }
   });
 
@@ -201,6 +202,9 @@ try {
       4
     );
     premio.pop();
+    const ultimoHijoPuntos = $tablaPuntos.lastChild;
+    console.log(ultimoHijoPuntos);
+    ultimoHijoPuntos.classList.add("desaparecer");
     actualizaValores();
     if (premio.length == 0) {
       creaAviso("Ya no te quedan intentos :😞 Game Over", "error", 4);
@@ -269,12 +273,11 @@ try {
       $aviso.classList.add("aviso");
       $aviso.classList.add(tipo);
       $aviso.textContent = message;
-      setTimeout(() => {
+      avisoTimeout = setTimeout(() => {
         $aviso.classList.remove("info");
         $aviso.classList.remove("warning");
         $aviso.classList.remove("error");
         $aviso.textContent = "";
-        $aviso.hidden = true;
         $aviso.style.border = "none";
       }, tiempo * 1000);
     }

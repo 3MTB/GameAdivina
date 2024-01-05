@@ -18,14 +18,18 @@
     <header>
       <h2>Information</h2>
       <p id="nivel">Nivel: <strong>1</strong></p>
-      <p id="puntosAcumulados">Puntos Acumulados: <strong>0</strong></p>
+      <p id="puntosAcumulados"> Acumulados: <strong>0</strong></p>
     </header>
-    <p role="alert" id="aviso" ></p>
+    <p role="alert" id="aviso" hidden>Aviso</p>
 
     <section>
       <p id="intentosRestantes">Intentos Restantes: <strong>0</strong></p>
-      <p id="puntosGanar">Puntos en juego: <strong>0</strong></p>
       <table id="tablaPuntos">
+        <thead>
+          <thead>
+            <td colspan="12" id="puntosGanar"> en Juego: <strong>0</strong></td>
+          </thead>
+        </thead>
         <tbody>
           <tr>
             <td>12</td>
@@ -37,24 +41,23 @@
       </table>
     </section>
 
-    <form method="dialog">
+    <form method="dialog" autocomplete="off">
       <h3>Prueba Tu Suerte</h3>
       <fieldset>
         <legend>Range: [<strong>0-100</strong>]</legend>
         <label>
-          Ingresa el numero:
           <input
             required
             type="number"
             placeholder="Enter the number"
             step="1"
             maxlength="2"
+            autofocus
           />
         </label>
         <button id="btnSubmit" disabled>Enviar</button>
       </fieldset>
     </form>
-
 
     <script defer src="./js/index.js"></script>
   </body>
