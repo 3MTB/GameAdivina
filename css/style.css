@@ -63,7 +63,6 @@ h1 {
 
 
 .card {
-    z-index: 3;
 
     box-sizing: border-box;
     display: flex;
@@ -127,7 +126,7 @@ h1 {
         color: #000;
         background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
     }
-
+    
     &.loser {
         background: linear-gradient(to right, #8a2387, #e94057, #f27121);
     }
