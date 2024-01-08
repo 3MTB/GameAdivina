@@ -1,28 +1,19 @@
 //! getElements HTML
-const $puntosAcumulados = document.querySelector("#puntosAcumulados strong");
-const $nivel = document.querySelector("#nivel strong");
-const $intentosRestantes = document.querySelector("#intentosRestantes strong");
-const $puntosGanar = document.querySelector("#puntosGanar strong");
-const $legend = document.querySelector("form fieldset legend strong");
+
+// const $intentosRestantes = document.querySelector("#intentosRestantes span");
+// const $puntosGanar = document.querySelector("#puntosGanar span");
+// const $legend = document.querySelector("form fieldset legend span");
 const $input = document.querySelector("form fieldset label input");
 const $btnSubmit = document.getElementById("btnSubmit");
-const $btnHelp = document.getElementById("btnHelp");
-const card = document.getElementById("card");
-const $tablaPuntos = document.querySelector("#tablaPuntos tbody tr");
+// const $btnHelp = document.getElementById("btnHelp");
+// const card = document.getElementById("card");
 
-//! Card
-const $card = document.getElementById("card");
-const $infocard = document.querySelector("#card p");
-const $titleCard = document.querySelector("#card h3");
-const $contador = document.querySelector("#card p[role=alert] strong");
-const otrosElementos = document.querySelectorAll("body > *:not(#card)");
-const $btnCloseCard = document.getElementById("btnCloseCard");
-
-//! Card
-
-//! Card
-
-//! getElements HTML
+// const $card = document.getElementById("card");
+// const $infocard = document.querySelector("#card p");
+// const $titleCard = document.querySelector("#card h3");
+// const $contador = document.querySelector("#card p[role=alert] span");
+// const otrosElementos = document.querySelectorAll("body > *:not(#card)");
+// const $btnCloseCard = document.getElementById("btnCloseCard");
 
 //! variables locales
 let numeroEncontrar = 0;
@@ -31,42 +22,49 @@ let nivel = 1;
 let puntosAcumulados = 0;
 let intentosRestantes = 0;
 let puntosGanar = 0;
-let cardInterval = 0;
-let avisoTimeout = 0;
+let avisoTimeout = setTimeout(()=>{},0);
 //! Variables Locales
 try {
   addEventListener("DOMContentLoaded", () => {
     muestraCard(
       "information",
-      "Explicacion del juego  <br><br>",
-      `1- El juego es totalmente aleatorio....<br>2- Los intentos seran calculados en base a la dificultad de la ronda.<br>
+      "Explicacion del juego",
+      `1- El juego es totalmente aleatorio....
+      <br>2- 
+      Los intentos seran calculados en 
+      base a la dificultad de la ronda
+      .<br>
  3- Para ganar, debes encontrar el numero antes de agotar tus intentos.<br>
-   4- Cada vez que falles, se restara un intento y se eliminara el ultimo premio.`,
+   4- Cada vez que falles, se 
+   restara un intento y se eliminara el ultimo premio.`,
       10
     );
+
     iniciaRonda();
-    // crear card explicado el juego
   });
 
   $input.addEventListener("input", () => {
     clearTimeout(avisoTimeout);
-
     if ($input.value.length === 0) {
       $btnSubmit.disabled = true;
-      // clearTimeout(avisoTimeout);
+      clearTimeout(avisoTimeout);
     } else if (parseInt($input.value) > parseInt($input.getAttribute("max"))) {
       $btnSubmit.disabled = true;
       creaAviso(
-        `El valor introducido debe ser menor o Igual al maximo establecido: ${
-          ($input.getAttribute("max"), "warning", 4)
-        }`
+        `El valor introducido debe ser inferior o Igual al maximo establecido: ${$input.getAttribute(
+          "max"
+        )}`,
+        "warning",
+        3
       );
     } else if (parseInt($input.value) < parseInt($input.getAttribute("min"))) {
       $btnSubmit.disabled = true;
       creaAviso(
-        `El valor introducido debe ser mayor o Igual al minimo establecido: ${
-          ($input.getAttribute("min"), "warning", 4)
-        }`
+        `El valor introducido debe ser mayor o Igual al minimo establecido: ${$input.getAttribute(
+          "min"
+        )}`,
+        "warning",
+        3
       );
     } else {
       $btnSubmit.disabled = false;
@@ -87,23 +85,17 @@ try {
         }
       }
       actualizaValores();
-    } else if (e.target === $btnHelp) {
+    } else if (e.target === document.getElementById("btnHelp")) {
       muestraCard(
         "information",
         "Explicacion del juego  <br><br>",
-        `1- El juego es totalmente aleatorio....<br>2- Los intentos seran calculados en base a la dificultad de la ronda.<br>
+        `1- El juego es totalmente aleatorio....<br>2- Los intentos s eran calculados en base a la dificultad de la ronda.<br>
  3- Para ganar, debes encontrar el numero antes de agotar tus intentos.<br>
    4- Cada vez que falles, se restara un intento y se eliminara el ultimo premio.`,
         10
       );
-    } else if (e.target === $btnCloseCard) {
-      clearInterval(cardInterval);
-      $card.removeAttribute("class");
-      otrosElementos.forEach((elemento) => {
-        if (elemento.tagName.toLowerCase() !== "script") {
-          elemento.style.display = "flex";
-        }
-      });
+    } else if (e.target === document.getElementById("btnCloseCard")) {
+      muestraCard(null, " ", " ", 0, true);
     }
   });
 
@@ -127,24 +119,21 @@ try {
     else if (rango >= 3) longitudPremio = 2;
     else longitudPremio = 1;
     generaPremio(longitudPremio);
-    creaAviso("Partida Cargada", "info", 4);
+    // creaAviso("Partida Cargada", "info", 4);
     actualizaValores();
   }
 
-  function generaNumeroEncontrar(max = null, min = null) {
-    max =
-      max === null || isNaN(max) || max <= 0
-        ? Math.round(Math.random() * 100)
-        : Math.round(max);
-    min =
-      min === null || isNaN(min) || min < 0
-        ? Math.round(Math.random() * max - 1)
-        : Math.round(min);
+  function generaNumeroEncontrar() {
+    let max = Math.round(Math.random() * (100 - 3) + 3);
+
+    let min = Math.round(Math.random() * (max - 2));
 
     numeroEncontrar = Math.round(Math.random() * (max - min) + min);
     $input.setAttribute("max", max);
     $input.setAttribute("min", min);
-    $legend.textContent = `${min} - ${max}`;
+    document.querySelector(
+      "form fieldset legend span"
+    ).textContent = `${min} - ${max}`;
   }
 
   function generaPremio(longitud = null) {
@@ -157,6 +146,8 @@ try {
   }
 
   function actualizaValores() {
+    const $tablaPuntos = document.querySelector("#tablaPuntos tbody tr");
+    // console.log($tablaPuntos);
     while ($tablaPuntos.firstChild) {
       $tablaPuntos.removeChild($tablaPuntos.firstChild);
     }
@@ -167,8 +158,12 @@ try {
       $tablaPuntos.appendChild(hijo);
       puntosGanar += p;
     });
-    $puntosGanar.textContent = puntosGanar;
-    $intentosRestantes.textContent = premio.length;
+    // console.log(document.querySelector("#puntosGanar strong"));
+    // const $tablaPuntos = document.querySelector("#tablaPuntos theaad td #puntosGanar span")
+
+    // document.querySelector("#puntosGanar span").textContent = puntosGanar;
+    // document.querySelector("#intentosRestantes span").textContent =
+    //   premio.length;
   }
 
   function ganador() {
@@ -178,10 +173,10 @@ try {
       "info",
       3
     );
-
+    document.querySelector("#nivel span").textContent = nivel;
     puntosAcumulados += puntosGanar;
-    $nivel.textContent = nivel;
-    $puntosAcumulados.textContent = puntosAcumulados;
+    document.querySelector("#puntosAcumulados span").textContent =
+      puntosAcumulados;
     ++nivel;
     muestraCard(
       "winner",
@@ -202,9 +197,7 @@ try {
       4
     );
     premio.pop();
-    const ultimoHijoPuntos = $tablaPuntos.lastChild;
-    console.log(ultimoHijoPuntos);
-    ultimoHijoPuntos.classList.add("desaparecer");
+
     actualizaValores();
     if (premio.length == 0) {
       creaAviso("Ya no te quedan intentos :😞 Game Over", "error", 4);
@@ -225,13 +218,27 @@ try {
     nameClass = null,
     titleCard = "error",
     infoCard = "error",
-    segundos = 3
+    segundos = 3,
+    cancelar = false
   ) {
+    let cardInterval = setInterval(() => {}, 0);
+
     const $card = document.getElementById("card");
+    const otrosElementos = document.querySelectorAll("body > *:not(#card)");
+    if (cancelar) {
+      $card.classList.remove(...$card.classList);
+      otrosElementos.forEach((elemento) => {
+        if (elemento.tagName.toLowerCase() !== "script") {
+          elemento.style.display = "flex";
+        }
+      });
+      clearInterval(cardInterval);
+      return;
+    }
+
     const $infocard = document.querySelector("#card p");
     const $titleCard = document.querySelector("#card h3");
-    const $contador = document.querySelector("#card p[role=alert] strong");
-    const otrosElementos = document.querySelectorAll("body > *:not(#card)");
+    const $contador = document.querySelector("#card p[role=alert] span");
 
     otrosElementos.forEach((elemento) => {
       if (elemento.tagName.toLowerCase() !== "script") {
@@ -239,17 +246,17 @@ try {
       }
     });
     nameClass = nameClass === null ? "loser" : nameClass;
-    $card.removeAttribute("class");
+    $card.classList.remove(...$card.classList);
 
-    $card.classList.toggle("card");
-    $card.classList.toggle(nameClass);
+    $card.classList.add("card");
+    $card.classList.add(nameClass);
 
     $titleCard.innerHTML = titleCard;
     $infocard.innerHTML = infoCard;
 
     cardInterval = setInterval(() => {
       if (segundos <= 0) {
-        $card.removeAttribute("class");
+        $card.classList.remove(...$card.classList);
         otrosElementos.forEach((elemento) => {
           if (elemento.tagName.toLowerCase() !== "script") {
             elemento.style.display = "flex";
@@ -261,33 +268,33 @@ try {
       $contador.textContent = segundos;
     }, 1000);
   }
-
-  function creaAviso(message, tipo = "info", tiempo = 2) {
-    if (message.length > 0) {
+  function creaAviso(message = null, tipo = "info", tiempo = 2) {
+    clearTimeout(avisoTimeout);
+    if (message.length > 0 && message !== null) {
       const $aviso = document.getElementById("aviso");
 
-      $aviso.classList.remove("info");
-      $aviso.classList.remove("warning");
-      $aviso.classList.remove("error");
+      $aviso.classList.remove(...$aviso.classList);
+      // $aviso.classList.remove("warning");
+      // $aviso.classList.remove("error");
 
       $aviso.classList.add("aviso");
       $aviso.classList.add(tipo);
       $aviso.textContent = message;
       avisoTimeout = setTimeout(() => {
-        $aviso.classList.remove("info");
-        $aviso.classList.remove("warning");
-        $aviso.classList.remove("error");
-        $aviso.textContent = "";
-        $aviso.style.border = "none";
+        $aviso.classList.remove(...$aviso.classList);
+        // $aviso.classList.remove("info");
+        // $aviso.classList.remove("warning");
+        // $aviso.classList.remove("error");
+        $aviso.setAttribute("hidden", true);
       }, tiempo * 1000);
     }
   }
 } catch (error) {
-  muestraCard(
-    "loser",
-    "Error Interno",
-    `Ha ocurrido un error de nuestra parte :( [${error}]. Reiniciaremos el funcionamiento....`,
-    5
+  alert(
+    `Ha ocurrido un error de nuestra parte :( [${error}]. Reiniciaremos el sistema.... Si el problema persiste, contacta a soporte.`
+  );
+  console.error(
+    `Ha ocurrido un error de nuestra parte :( [${error}]. Reiniciaremos el sistema.... Si el problema persiste, contacta a soporte.`
   );
   iniciaRonda();
 }

@@ -13,21 +13,22 @@
       <h3>Title</h3>
       <p role="definition">Description</p>
       <button id="btnCloseCard">❌</button>
-      <p role="alert">Cierra Automaticamente en: <strong></strong>s</p>
+      <p role="alert">Cierra Automaticamente en: <span></span>s</p>
     </div>
     <header>
       <h2>Information</h2>
-      <p id="nivel">Nivel: <strong>1</strong></p>
-      <p id="puntosAcumulados"> Acumulados: <strong>0</strong></p>
+      <p id="nivel">Nivel: <span>1</span></p>
+      <p id="puntosAcumulados">Acumulados: <span>0</span></p>
     </header>
-    <p role="alert" id="aviso" hidden>Aviso</p>
 
     <section>
-      <p id="intentosRestantes">Intentos Restantes: <strong>0</strong></p>
+      <p id="intentosRestantes">Intentos Restantes: <span>0</span></p>
       <table id="tablaPuntos">
         <thead>
           <thead>
-            <td colspan="12" id="puntosGanar"> en Juego: <strong>0</strong></td>
+            <tr>
+              <td colspan="12" id="puntosGanar"><span>0</span></td>
+            </tr>
           </thead>
         </thead>
         <tbody>
@@ -40,11 +41,12 @@
         </tbody>
       </table>
     </section>
+    <p role="alert" id="aviso" class="default value ItsNotaClass" hidden></p>
 
     <form method="dialog" autocomplete="off">
       <h3>Prueba Tu Suerte</h3>
       <fieldset>
-        <legend>Range: [<strong>0-100</strong>]</legend>
+        <legend>Range: [<span>0-100</span>]</legend>
         <label>
           <input
             required
@@ -59,6 +61,6 @@
       </fieldset>
     </form>
 
-    <script defer src="./js/index.js"></script>
+    <script defer src="./js/index2.js"></script>
   </body>
 </html>
