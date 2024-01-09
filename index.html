@@ -46,18 +46,19 @@
         <legend>Range: [<span>0-100</span>]</legend>
         <label>
           <input
-            required
             type="number"
             placeholder="Enter the number"
             step="1"
             maxlength="2"
+            pattern="[0-100]+"
             autofocus
+            required
           />
         </label>
         <button id="btnSubmit" disabled>Enviar</button>
       </fieldset>
     </form>
 
-    <script defer src="./js/index1.js"></script>
+    <script defer src="./js/index.js"></script>
   </body>
 </html>
