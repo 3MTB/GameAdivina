@@ -126,7 +126,7 @@ h1 {
         color: #000;
         background: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
     }
-    
+
     &.loser {
         background: linear-gradient(to right, #8a2387, #e94057, #f27121);
     }
@@ -228,8 +228,6 @@ section {
     }
 }
 
-
-
 form {
     color: #fff;
     font-weight: lighter;
@@ -283,10 +281,18 @@ form {
         width: 17rem;
         height: 2rem;
 
-        &:focus,
+
         &:hover {
             &::placeholder {
                 color: var(--infoColor);
+            }
+        }
+
+        &:invalid {
+            border-color: var(--errorColor);
+
+            &::placeholder {
+                color: var(--errorColor);
             }
         }
     }
@@ -319,13 +325,13 @@ form {
     &.warning {
         border-top: 0.3rem solid var(--warningColor);
         border-left: 0.1rem solid var(--warningColor);
-        animation: avisoWarning 1.3s ease .1s ;
+        animation: avisoWarning 1.3s ease .1s;
     }
 
     &.error {
         border-top: 0.3rem solid var(--errorColor);
         border-left: 0.1rem solid var(--errorColor);
-        animation: avisoError 2s ease .5s ;
+        animation: avisoError 2s ease .5s;
     }
 }
 
