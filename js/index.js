@@ -237,19 +237,19 @@ try {
   }
 
   function winner() {
-    makeCard(
-      tipoCard.winner,
-      "Felicidades has ganado",
-      8,
-      false,
-      `Has Ganado ${puntosGanar} 🏆`,
-      "Se cargara una nueva ronda...."
-    );
+    // makeCard(
+    //   tipoCard.winner,
+    //   "Felicidades has ganado",
+    //   8,
+    //   false,
+    //   `Has Ganado ${puntosGanar} 🏆`,
+    //   "Se cargara una nueva ronda...."
+    // );
     actualizaValores();
     makeAviso(
       `Felicidades Has Acertado....+${puntosGanar} 🏆`,
       TipoAvisos.information,
-      2
+      8
     );
 
     document.querySelector("#nivel span").textContent = nivel;
@@ -260,7 +260,7 @@ try {
     makeCard(
       tipoCard.winner,
       "Felicidades has ganado",
-      3,
+      7,
       false,
       `Nivel Superado`,
       `+🏆${puntosGanar}`,
