@@ -78,7 +78,7 @@ try {
     makeCard(
       tipoCard.information,
       "Funcionamiento del JUEGO",
-      10,
+      6,
       false,
       " - El juego consiste en adivinar un numero generado aleatoriamente, entre un rango determinado con una cantidad de intentos determinada.",
       " - Los intentos seran calculados en base a la longitud de lrango de valores posibles.",
@@ -252,12 +252,15 @@ try {
     document.querySelector("#puntosAcumulados span").textContent =
       puntosAcumulados;
     ++nivel;
-    muestraCard(
-      "winner",
+    makeCard(
+      tipoCard.winner,
       "Felicidades has ganado",
-      `Nivel: ${nivel} Actual... Niveles superados: ${nivel > 1 ? nivel - 1 : 0}
-  Puntos Acumulados: ${puntosAcumulados} +${puntosGanar} Puntos`,
-      3
+      3,
+      false,
+      `Nivel Superado`,
+      `+🏆${puntosGanar}`,
+      `Puntos acumulados: ${puntosAcumulados}`,
+      `Niveles superados: ${nivel > 1 ? nivel - 1 : 0}`
     );
   }
 
