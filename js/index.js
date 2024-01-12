@@ -49,7 +49,7 @@ try {
   $input.addEventListener("input", () => {
     if ($input.value.length === 0) {
       $btnSubmit.disabled = true;
-      clearTimeout(avisoTimeout);
+      makeAviso(null,null,null,true);
     } else if (parseInt($input.value) > parseInt($input.getAttribute("max"))) {
       $btnSubmit.disabled = true;
       makeAviso(
@@ -70,7 +70,7 @@ try {
       );
     } else {
       $btnSubmit.disabled = false;
-      clearTimeout(avisoTimeout);
+      makeAviso(null,null,null,true);
     }
   });
   //!                   F U N C I O N E S
@@ -88,16 +88,18 @@ try {
     );
   }
 
-  function makeAviso(message = null, tipo = null, tiempo = null) {
+  function makeAviso(
+    message = null,
+    tipo = null,
+    tiempo = null,
+    cancelar = false
+  ) {
     clearTimeout(avisoTimeout);
 
-    
-
     const $aviso = document.getElementById("aviso");
-    $aviso.textContent = " ";
-
     $aviso.classList.remove(...$aviso.classList);
-
+    $aviso.textContent = " ";
+    if (cancelar) return;
     message = message === null ? " Message Undefined" : message;
     tipo = tipo === null ? TipoAvisos.information : tipo;
     tiempo = tiempo === null || typeof tiempo !== "number" ? 3 : tiempo;
