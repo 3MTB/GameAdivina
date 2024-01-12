@@ -89,6 +89,10 @@ try {
   }
 
   function makeAviso(message = null, tipo = null, tiempo = null) {
+    clearTimeout(avisoTimeout);
+
+    
+
     const $aviso = document.getElementById("aviso");
     $aviso.textContent = " ";
 
@@ -104,7 +108,6 @@ try {
     avisoTimeout = setTimeout(() => {
       $aviso.classList.remove(...$aviso.classList);
       $aviso.textContent = " ";
-
       clearTimeout(avisoTimeout);
     }, tiempo * 1000);
   }
