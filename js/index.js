@@ -42,6 +42,9 @@ try {
           premio.pop();
           actualizaValores();
           if (premio.length === 0) {
+            nivel = 1;
+            window.navigator.vibrate([200, 50, 200]);
+
             makeCard(
               tipoCard.loser,
               "Has perdido. ",
@@ -252,7 +255,10 @@ try {
       premio.length;
   }
 
-  function winner() {
+    function winner() {
+
+        window.navigator.vibrate([200, 40, 200]);
+
     actualizaValores();
     makeAviso(
       `Felicidades Has Acertado....+${puntosGanar} 🏆`,
@@ -264,7 +270,7 @@ try {
     puntosAcumulados += puntosGanar;
     document.querySelector("#puntosAcumulados span").textContent =
       puntosAcumulados;
-    ++nivel;
+    nivel = nivel + 1;
     makeCard(
       tipoCard.winner,
       "Felicidades has ganado",
@@ -283,7 +289,7 @@ try {
       `El numero a ingresar es   ${
         numeroIngresado < numeroEncontrar ? "mayor🎈" : "menor↙️"
       }`,
-      TipoAvisos.warning, 
+      TipoAvisos.warning,
       3
     );
     actualizaValores();
