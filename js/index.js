@@ -65,7 +65,6 @@ try {
   });
 
   $input.addEventListener("input", () => {
-    window.navigator.vibrate(200);
     if ($input.value.length === 0) {
       $btnSubmit.disabled = true;
       makeAviso(null, null, null, true);
