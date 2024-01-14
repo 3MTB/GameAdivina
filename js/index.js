@@ -46,6 +46,7 @@ try {
   });
 
   $input.addEventListener("input", () => {
+    window.navigator.vibrate(200);
     if ($input.value.length === 0) {
       $btnSubmit.disabled = true;
       makeAviso(null, null, null, true);
@@ -93,15 +94,18 @@ try {
     tiempo = null,
     cancelar = false
   ) {
-    clearTimeout(avisoTimeout);
+      clearTimeout(avisoTimeout);
+
 
     const $aviso = document.getElementById("aviso");
     $aviso.classList.remove(...$aviso.classList);
     $aviso.textContent = " ";
-    if (cancelar) return;
+      if (cancelar) return;
+
     message = message === null ? " Message Undefined" : message;
     tipo = tipo === null ? TipoAvisos.information : tipo;
     tiempo = tiempo === null || typeof tiempo !== "number" ? 3 : tiempo;
+      window.navigator.vibrate(300);
 
     $aviso.classList.add("aviso");
     $aviso.classList.add(tipo);
@@ -132,7 +136,6 @@ try {
         }
       });
       clearInterval(cardInterval);
-      // alert("Card Ocultada");
       return;
     }
     tipo = tipo === null ? tipoCard.information : tipo;
