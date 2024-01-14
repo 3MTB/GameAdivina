@@ -39,6 +39,22 @@ try {
           winner();
           iniciaRonda();
         } else {
+          premio.pop();
+          actualizaValores();
+          if (premio.length === 0) {
+            makeCard(
+              tipoCard.loser,
+              "Has perdido. ",
+              8,
+              false,
+              "Ya no te quedan intentos",
+              `Niveles superados: ${nivel > 1 ? nivel - 1 : 0}`,
+              `Puntos Acumulados: ${puntosAcumulados}`
+            );
+            nivel = 1;
+            iniciaRonda();
+            return;
+          }
           loser();
         }
       }
@@ -94,18 +110,17 @@ try {
     tiempo = null,
     cancelar = false
   ) {
-      clearTimeout(avisoTimeout);
-
+    clearTimeout(avisoTimeout);
 
     const $aviso = document.getElementById("aviso");
     $aviso.classList.remove(...$aviso.classList);
     $aviso.textContent = " ";
-      if (cancelar) return;
+    if (cancelar) return;
 
     message = message === null ? " Message Undefined" : message;
     tipo = tipo === null ? TipoAvisos.information : tipo;
     tiempo = tiempo === null || typeof tiempo !== "number" ? 3 : tiempo;
-      window.navigator.vibrate(300);
+    window.navigator.vibrate(300);
 
     $aviso.classList.add("aviso");
     $aviso.classList.add(tipo);
@@ -263,35 +278,14 @@ try {
   }
 
   function loser() {
-    premio.pop();
-    if (premio.length === 0) {
-      makeCard(
-        tipoCard.loser,
-        "Has perdido. ",
-        8,
-        false,
-        "Ya no te quedan intentos",
-        `Niveles superados: ${nivel > 1 ? nivel - 1 : 0}`,
-        `Puntos Acumulados: ${puntosAcumulados}`
-      );
-      iniciaRonda();
-      makeAviso(
-        `Felicidades Has Acertado....+${puntosGanar} 🏆`,
-        TipoAvisos.information,
-        2
-      );
-      return;
-    }
-
     const numeroIngresado = parseInt($input.value);
     makeAviso(
       `El numero a ingresar es   ${
         numeroIngresado < numeroEncontrar ? "mayor🎈" : "menor↙️"
       }`,
-      TipoAvisos.warning,
+      TipoAvisos.warning, 
       3
     );
-
     actualizaValores();
   }
 } catch (error) {
