@@ -1,5 +1,4 @@
 try {
-  //TODO: REVISAR alert
   //!                Variables Locales
   const TipoAvisos = {
     information: "info",
@@ -49,7 +48,7 @@ try {
   $input.addEventListener("input", () => {
     if ($input.value.length === 0) {
       $btnSubmit.disabled = true;
-      makeAviso(null,null,null,true);
+      makeAviso(null, null, null, true);
     } else if (parseInt($input.value) > parseInt($input.getAttribute("max"))) {
       $btnSubmit.disabled = true;
       makeAviso(
@@ -70,7 +69,7 @@ try {
       );
     } else {
       $btnSubmit.disabled = false;
-      makeAviso(null,null,null,true);
+      makeAviso(null, null, null, true);
     }
   });
   //!                   F U N C I O N E S
@@ -201,7 +200,6 @@ try {
   function generaNumeroEncontrar() {
     let max = Math.round(Math.random() * (100 - 3) + 3);
     let min = Math.round(Math.random() * (max - 2));
-
     numeroEncontrar = Math.round(Math.random() * (max - min) + min);
     $input.setAttribute("max", max);
     $input.setAttribute("min", min);
@@ -237,14 +235,6 @@ try {
   }
 
   function winner() {
-    // makeCard(
-    //   tipoCard.winner,
-    //   "Felicidades has ganado",
-    //   8,
-    //   false,
-    //   `Has Ganado ${puntosGanar} 🏆`,
-    //   "Se cargara una nueva ronda...."
-    // );
     actualizaValores();
     makeAviso(
       `Felicidades Has Acertado....+${puntosGanar} 🏆`,
@@ -292,8 +282,8 @@ try {
 
     const numeroIngresado = parseInt($input.value);
     makeAviso(
-      `El numero ingresado es ${
-        numeroIngresado > numeroEncontrar ? "mayor" : "menor"
+      `El numero a ingresar es   ${
+        numeroIngresado < numeroEncontrar ? "mayor🎈" : "menor↙️"
       }`,
       TipoAvisos.warning,
       3

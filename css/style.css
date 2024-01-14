@@ -290,9 +290,8 @@ form {
 
         &:invalid {
             border-color: var(--errorColor);
-
             &::placeholder {
-                color: var(--errorColor);
+                color: #fff;
             }
         }
     }
