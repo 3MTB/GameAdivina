@@ -231,6 +231,7 @@ section {
 form {
     color: #fff;
     font-weight: lighter;
+    padding-bottom: 2rem;
 
     & h3 {
         letter-spacing: .18rem;

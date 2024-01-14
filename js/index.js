@@ -39,25 +39,6 @@ try {
           winner();
           iniciaRonda();
         } else {
-          premio.pop();
-          actualizaValores();
-          if (premio.length === 0) {
-            nivel = 1;
-            window.navigator.vibrate([200, 50, 200]);
-
-            makeCard(
-              tipoCard.loser,
-              "Has perdido. ",
-              8,
-              false,
-              "Ya no te quedan intentos",
-              `Niveles superados: ${nivel > 1 ? nivel - 1 : 0}`,
-              `Puntos Acumulados: ${puntosAcumulados}`
-            );
-            nivel = 1;
-            iniciaRonda();
-            return;
-          }
           loser();
         }
       }
@@ -122,7 +103,6 @@ try {
     message = message === null ? " Message Undefined" : message;
     tipo = tipo === null ? TipoAvisos.information : tipo;
     tiempo = tiempo === null || typeof tiempo !== "number" ? 3 : tiempo;
-    window.navigator.vibrate(300);
 
     $aviso.classList.add("aviso");
     $aviso.classList.add(tipo);
@@ -213,6 +193,7 @@ try {
     else if (rango >= 3) longitudPremio = 2;
     else longitudPremio = 1;
     generaPremio(longitudPremio);
+    actualizaAvanze();
     actualizaValores();
     makeAviso("Partida Cargada", TipoAvisos.information, 3);
   }
@@ -253,23 +234,25 @@ try {
     document.querySelector("#intentosRestantes span").textContent =
       premio.length;
   }
+  function actualizaAvanze() {
+    document.querySelector("#nivel span").textContent = nivel;
+    puntosAcumulados += puntosGanar;
+    document.querySelector("#puntosAcumulados span").textContent =
+      puntosAcumulados;
+  }
 
-    function winner() {
 
-        window.navigator.vibrate([200, 40, 200]);
-
+  function winner() {
+    window.navigator.vibrate([200, 40, 200]);
+    nivel = nivel + 1;
     actualizaValores();
     makeAviso(
       `Felicidades Has Acertado....+${puntosGanar} 🏆`,
       TipoAvisos.information,
       8
     );
-
-    document.querySelector("#nivel span").textContent = nivel;
-    puntosAcumulados += puntosGanar;
-    document.querySelector("#puntosAcumulados span").textContent =
-      puntosAcumulados;
-    nivel = nivel + 1;
+    actualizaAvanze();
+    
     makeCard(
       tipoCard.winner,
       "Felicidades has ganado",
@@ -281,8 +264,30 @@ try {
       `Niveles superados: ${nivel > 1 ? nivel - 1 : 0}`
     );
   }
-
+ 
   function loser() {
+    premio.pop();
+    actualizaValores();
+
+    if (premio.length === 0) {
+      window.navigator.vibrate([200, 50, 200]);
+      makeCard(
+        tipoCard.loser,
+        "Has perdido. ",
+        8,
+        false,
+        "Ya no te quedan intentos",
+        `Niveles superados: ${nivel > 1 ? nivel - 1 : 0}`,
+        `Puntos Acumulados: ${puntosAcumulados}`
+      );
+      nivel = 1;
+      puntosAcumulados = 0;
+      iniciaRonda();
+      console.log(
+        `Se supone que debiste reiniciar los valores:::: Nivel ${nivel}`
+      );
+      return;
+    }
     const numeroIngresado = parseInt($input.value);
     makeAviso(
       `El numero a ingresar es   ${
