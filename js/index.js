@@ -87,6 +87,8 @@ try {
   });
   //!                   F U N C I O N E S
   function ActualizaTablaAvanze(ByPoint = true) {
+    const $PartidasJugadas = document.getElementById('tdPartidasJugadas');
+    $PartidasJugadas.textContent = partidasGanadas.length;
     const $tablaAvanze = document.querySelector("#tablaAvanze tbody");
     while ($tablaAvanze.firstChild) {
       $tablaAvanze.removeChild($tablaAvanze.firstChild);
