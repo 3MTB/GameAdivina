@@ -18,6 +18,7 @@ try {
   let nivel = 1;
   let puntosAcumulados = 0;
   let puntosGanar = 0;
+  let partidasGanadas = new Array(0);
 
   const $input = document.querySelector("form fieldset label input");
   const $btnSubmit = document.getElementById("btnSubmit");
@@ -27,6 +28,7 @@ try {
   addEventListener("DOMContentLoaded", () => {
     explicacionJuego();
     iniciaRonda();
+    ActualizaTablaAvanze();
   });
   addEventListener("click", (e) => {
     if (e.target === document.getElementById("btnHelp")) {
@@ -42,6 +44,16 @@ try {
           loser();
         }
       }
+    } else if (e.target == document.getElementById("btnOrderByPuntos")) {
+      ActualizaTablaAvanze(true);
+    } else if (e.target == document.getElementById("btnOrderByNivel")) {
+      ActualizaTablaAvanze(false);
+    } else if (e.target == document.getElementById("btnHistory")) {
+      ActualizaTablaAvanze(false);
+      document.getElementById("tablaAvanze").style.visibility =
+        document.getElementById("tablaAvanze").style.visibility != "visible"
+          ? "visible"
+          : "collapse";
     }
   });
 
@@ -73,6 +85,41 @@ try {
     }
   });
   //!                   F U N C I O N E S
+  function ActualizaTablaAvanze(ByPoint = true) {
+    const $tablaAvanze = document.querySelector("#tablaAvanze tbody");
+    while ($tablaAvanze.firstChild) {
+      $tablaAvanze.removeChild($tablaAvanze.firstChild);
+    }
+    if (partidasGanadas.length == 0) {
+      const $tr = document.createElement("tr");
+      const $tdPuntos = document.createElement("td");
+      const $tdNivel = document.createElement("td");
+      $tdPuntos.textContent = "--";
+      $tdNivel.textContent = "--";
+      $tr.appendChild($tdNivel);
+      $tr.appendChild($tdPuntos);
+      $tablaAvanze.appendChild($tr);
+      return;
+    }
+    partidasGanadas = partidasGanadas.sort((a, b) => {
+      if (ByPoint) {
+        return b.puntos - a.puntos;
+      } else {
+        return b.nivel - a.nivel;
+      }
+    });
+    partidasGanadas.forEach((x) => {
+      const $tr = document.createElement("tr");
+      const $tdPuntos = document.createElement("td");
+      const $tdNivel = document.createElement("td");
+      $tdPuntos.textContent = x.puntos + "🏆";
+      $tdNivel.textContent = x.nivel;
+      $tr.appendChild($tdNivel);
+      $tr.appendChild($tdPuntos);
+      $tablaAvanze.appendChild($tr);
+    });
+  }
+
   function explicacionJuego() {
     makeCard(
       tipoCard.information,
@@ -114,6 +161,7 @@ try {
     }, tiempo * 1000);
   }
 
+
   function makeCard(
     tipo = null,
     title = null,
@@ -122,15 +170,15 @@ try {
     ...description
   ) {
     const $card = document.getElementById("card");
-    const $otrosElementos = document.querySelectorAll("body > *:not(#card)");
+    const $otrosElementos = document.querySelectorAll(
+      "body > *:not(#card):not(script):not(#tablaAvanze)"
+    );
     $card.classList.remove(...$card.classList);
 
     if (cancelar) {
       $card.classList.remove(...$card.classList);
       $otrosElementos.forEach((elemento) => {
-        if (elemento.tagName.toLowerCase() !== "script") {
-          elemento.style.display = "flex";
-        }
+        elemento.style.visibility = "visible";
       });
       clearInterval(cardInterval);
       return;
@@ -147,11 +195,11 @@ try {
     const $contador = document.querySelector("#card p[role=alert] span");
     $card.classList.add("card");
     $card.classList.add(tipo);
+
     $otrosElementos.forEach((elemento) => {
-      if (elemento.tagName.toLowerCase() !== "script") {
-        elemento.style.display = "none";
-      }
+      elemento.style.visibility = "collapse";
     });
+
     $description.textContent = "";
     description.forEach((text) => {
       $description.innerHTML += `${text} <br>`;
@@ -161,9 +209,7 @@ try {
       if (segundos <= 0) {
         $card.classList.remove(...$card.classList);
         $otrosElementos.forEach((elemento) => {
-          if (elemento.tagName.toLowerCase() !== "script") {
-            elemento.style.display = "flex";
-          }
+          elemento.style.visibility = "visible";
         });
         $description.textContent = "";
         clearInterval(cardInterval);
@@ -234,6 +280,7 @@ try {
     document.querySelector("#intentosRestantes span").textContent =
       premio.length;
   }
+
   function actualizaAvanze() {
     document.querySelector("#nivel span").textContent = nivel;
     puntosAcumulados += puntosGanar;
@@ -241,10 +288,12 @@ try {
       puntosAcumulados;
   }
 
-
   function winner() {
     window.navigator.vibrate([200, 40, 200]);
+    partidasGanadas.unshift({ puntos: puntosGanar, nivel: nivel });
+
     nivel = nivel + 1;
+    ActualizaTablaAvanze();
     actualizaValores();
     makeAviso(
       `Felicidades Has Acertado....+${puntosGanar} 🏆`,
@@ -252,7 +301,7 @@ try {
       8
     );
     actualizaAvanze();
-    
+
     makeCard(
       tipoCard.winner,
       "Felicidades has ganado",
@@ -264,7 +313,6 @@ try {
       `Niveles superados: ${nivel > 1 ? nivel - 1 : 0}`
     );
   }
- 
   function loser() {
     premio.pop();
     actualizaValores();
