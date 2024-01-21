@@ -19,6 +19,7 @@ try {
   let puntosAcumulados = 0;
   let puntosGanar = 0;
   let partidasGanadas = [{ puntos: 0, nivel: 0 }];
+  partidasGanadas.length = 0;
 
   const $input = document.querySelector("form fieldset label input");
   const $btnSubmit = document.getElementById("btnSubmit");
@@ -45,11 +46,8 @@ try {
         }
       }
     } else if (e.target == document.getElementById("btnOrderByPuntos")) {
-      console.log("Ordenando puntos");
       ActualizaTablaAvanze(true);
     } else if (e.target == document.getElementById("btnOrderByNivel")) {
-      console.log("Ordenando nivel");
-
       ActualizaTablaAvanze(false);
     } else if (e.target == document.getElementById("btnHistory")) {
       ActualizaTablaAvanze(false);
@@ -256,7 +254,6 @@ try {
     document.querySelector(
       "form fieldset legend span"
     ).textContent = `${min} - ${max}`;
-    console.log(`THE NUMBERS IS: ${numeroEncontrar}`);
   }
 
   function generaPremio(longitud = null) {
