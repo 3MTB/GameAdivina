@@ -18,7 +18,7 @@ try {
   let nivel = 1;
   let puntosAcumulados = 0;
   let puntosGanar = 0;
-  let partidasGanadas = new Array(0);
+  let partidasGanadas = [{ puntos: 0, nivel: 0 }];
 
   const $input = document.querySelector("form fieldset label input");
   const $btnSubmit = document.getElementById("btnSubmit");
@@ -45,8 +45,11 @@ try {
         }
       }
     } else if (e.target == document.getElementById("btnOrderByPuntos")) {
+      console.log("Ordenando puntos");
       ActualizaTablaAvanze(true);
     } else if (e.target == document.getElementById("btnOrderByNivel")) {
+      console.log("Ordenando nivel");
+
       ActualizaTablaAvanze(false);
     } else if (e.target == document.getElementById("btnHistory")) {
       ActualizaTablaAvanze(false);
@@ -101,6 +104,7 @@ try {
       $tablaAvanze.appendChild($tr);
       return;
     }
+
     partidasGanadas = partidasGanadas.sort((a, b) => {
       if (ByPoint) {
         return b.puntos - a.puntos;
@@ -160,7 +164,6 @@ try {
       clearTimeout(avisoTimeout);
     }, tiempo * 1000);
   }
-
 
   function makeCard(
     tipo = null,
@@ -253,6 +256,7 @@ try {
     document.querySelector(
       "form fieldset legend span"
     ).textContent = `${min} - ${max}`;
+    console.log(`THE NUMBERS IS: ${numeroEncontrar}`);
   }
 
   function generaPremio(longitud = null) {
@@ -283,24 +287,21 @@ try {
 
   function actualizaAvanze() {
     document.querySelector("#nivel span").textContent = nivel;
-    puntosAcumulados += puntosGanar;
+
     document.querySelector("#puntosAcumulados span").textContent =
       puntosAcumulados;
   }
-
   function winner() {
     window.navigator.vibrate([200, 40, 200]);
-    partidasGanadas.unshift({ puntos: puntosGanar, nivel: nivel });
 
     nivel = nivel + 1;
-    ActualizaTablaAvanze();
+    puntosAcumulados += puntosGanar;
     actualizaValores();
     makeAviso(
       `Felicidades Has Acertado....+${puntosGanar} 🏆`,
       TipoAvisos.information,
       8
     );
-    actualizaAvanze();
 
     makeCard(
       tipoCard.winner,
@@ -312,12 +313,16 @@ try {
       `Puntos acumulados: ${puntosAcumulados}`,
       `Niveles superados: ${nivel > 1 ? nivel - 1 : 0}`
     );
+    actualizaAvanze();
   }
   function loser() {
     premio.pop();
     actualizaValores();
 
     if (premio.length === 0) {
+      partidasGanadas.push({ puntos: puntosAcumulados, nivel: nivel });
+
+      ActualizaTablaAvanze();
       window.navigator.vibrate([200, 50, 200]);
       makeCard(
         tipoCard.loser,
@@ -331,9 +336,7 @@ try {
       nivel = 1;
       puntosAcumulados = 0;
       iniciaRonda();
-      console.log(
-        `Se supone que debiste reiniciar los valores:::: Nivel ${nivel}`
-      );
+
       return;
     }
     const numeroIngresado = parseInt($input.value);

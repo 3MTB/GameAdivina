@@ -140,9 +140,10 @@ h1 {
         font-weight: lighter;
         cursor: pointer;
         font-family: inherit;
-        border: none;
+        border: .2rem solid #fff;
         background-color: transparent;
         transform: .2s;
+        color: #000;
     }
 
     &.information {
