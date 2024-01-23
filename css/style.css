@@ -371,6 +371,7 @@ form {
 }
 
 footer {
+    display: flex;
     background-color: #0e0d0d92;
     border: .01rem solid #fff;
     font-family: 'Times New Roman', Times, serif;
@@ -380,21 +381,22 @@ footer {
     & p:first-child {
         font-size: 1.3rem;
         margin: .2rem 0 0 0;
+
         & strong {
             color: #09f;
         }
     }
 
     & p:last-child {
-        &:hover ::before{
+        &:hover ::before {
             content: "🏆";
             transition: .1s;
         }
-    
+
         & strong {
             letter-spacing: .25rem;
             color: #C53314;
-            
+
         }
     }
 
